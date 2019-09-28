@@ -4,24 +4,24 @@ using System.Collections.Generic;
 namespace KeyValueStore
 {
   
-        struct KeyValue
+        struct KeyValue<T>
         {
             public readonly string key;
-            public readonly object value;
+            public readonly T value;
 
-            public KeyValue(string key, object value)
+            public KeyValue(string key, T value)
             {
                 this.key = key;
                 this.value = value;
             }
 
         }
-    class MyDictionary
+    class MyDictionary<T>
     {
-        KeyValue[] arry = new KeyValue[10];
+        KeyValue <T>[] arry = new KeyValue <T>[10];
         int tracker = 0;
 
-        public object this[string indexer]
+        public T this[string indexer]
         {
             get
             {
@@ -42,14 +42,14 @@ namespace KeyValueStore
                 {
                     if (arry[i].key == indexer)
                     {
-                        arry[i] = new KeyValue(indexer, value);
+                        arry[i] = new KeyValue<T>(indexer, value);
                         return;
                     }
                 }
 
                 if (tracker < arry.Length)
                 {
-                    arry[tracker++] = new KeyValue(indexer, value);
+                    arry[tracker++] = new KeyValue<T>(indexer, value);
                 }
             }
 
@@ -62,7 +62,7 @@ namespace KeyValueStore
     {
         static void Main(string[] args)
         {
-            var d = new MyDictionary();
+            MyDictionary<int> d = new MyDictionary<int>();
             try
             {
                 Console.WriteLine(d["Cats"]);
